@@ -15,10 +15,11 @@ app.use(express.json());
 
 // Middleware to parse incoming URL-encoded form data and make it accessible in req.body
 // Setting extended: false ensures that the querystring library is used for parsing
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/tickets', require('./routes/ticketRoutes'));
 
 app.use(errorHandler);
 
