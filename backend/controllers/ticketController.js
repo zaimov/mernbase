@@ -4,6 +4,29 @@ const User = require('../models/userModel');
 const Ticket = require('../models/ticketModel');
 
 /**
+ * @desc Get tickets
+ * @route GET /api/tickets
+ * @access Private
+ */
+const getTickets = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error('User not found');
+  }
+
+  const tickets = await Ticket.find({ user: req.user.id });
+
+  if (!tickets) {
+    res.status(404);
+    throw new Error('Tickets not found');
+  }
+
+  res.status(200).json(tickets);
+});
+
+/**
  * @desc Get ticket
  * @route GET /api/tickets/:id
  * @access Private
